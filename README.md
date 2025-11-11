@@ -381,3 +381,5 @@ For support, email support@resortbilling.com or create an issue in the repositor
 ---
 
 **Happy Billing! 🎉**
+#   r e s o r t - b i l l i n g - a p p  
+ 
