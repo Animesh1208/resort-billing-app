@@ -180,7 +180,7 @@ const BillDetail = () => {
                   <td className="text-right"><strong>{formatCurrency(bill.subtotal)}</strong></td>
                 </tr>
                 <tr>
-                  <td>Tax ({bill.taxPercentage}%)</td>
+                  <td>GST ({bill.taxPercentage}%)</td>
                   <td className="text-right">{formatCurrency(bill.tax)}</td>
                 </tr>
                 <tr className="total-row">

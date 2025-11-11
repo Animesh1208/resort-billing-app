@@ -32,7 +32,7 @@ const createBill = async (req, res) => {
 
     // Calculate totals
     const subtotal = (roomCharges || 0) + (foodCharges || 0) + (otherCharges || 0);
-    const tax = (subtotal * (taxPercentage || 18)) / 100;
+    const tax = (subtotal * (taxPercentage || 5)) / 100;
     const totalAmount = subtotal + tax;
 
     const bill = await Bill.create({
@@ -258,8 +258,8 @@ const generateBillPDF = async (req, res) => {
     doc.text('₹ ' + bill.subtotal.toFixed(2), amountX, doc.y);
     doc.moveDown(0.5);
 
-    // Tax
-    doc.text(`Tax (${bill.taxPercentage}%):`, descriptionX, doc.y);
+    // GST
+    doc.text(`GST (${bill.taxPercentage}%):`, descriptionX, doc.y);
     doc.text('₹ ' + bill.tax.toFixed(2), amountX, doc.y);
     doc.moveDown(0.5);
 
@@ -446,7 +446,7 @@ const generateMonthlySummaryPDF = async (req, res) => {
 
     currentY += 20;
     doc.text(`Other Charges: ₹ ${totalOtherCharges.toFixed(2)}`, leftCol, currentY);
-    doc.text(`Total Tax: ₹ ${totalTax.toFixed(2)}`, rightCol, currentY);
+    doc.text(`Total GST: ₹ ${totalTax.toFixed(2)}`, rightCol, currentY);
 
     doc.moveDown(2);
     doc.moveTo(50, doc.y).lineTo(545, doc.y).stroke();

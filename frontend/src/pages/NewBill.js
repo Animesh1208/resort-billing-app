@@ -18,7 +18,7 @@ const NewBill = () => {
     roomCharges: '',
     foodCharges: '',
     otherCharges: '',
-    taxPercentage: '18',
+    taxPercentage: '5',
     paymentMethod: 'cash',
     notes: '',
   });
@@ -120,15 +120,24 @@ const NewBill = () => {
 
               <div className="form-group">
                 <label htmlFor="roomNumber">Room Number *</label>
-                <input
-                  type="text"
+                <select
                   id="roomNumber"
                   name="roomNumber"
                   className="form-control"
                   value={formData.roomNumber}
                   onChange={handleChange}
                   required
-                />
+                >
+                  <option value="">Select Room</option>
+                  <option value="D1">D1</option>
+                  <option value="D2">D2</option>
+                  <option value="G1">G1</option>
+                  <option value="G2">G2</option>
+                  <option value="C1">C1</option>
+                  <option value="C2">C2</option>
+                  <option value="C3">C3</option>
+                  <option value="C4">C4</option>
+                </select>
               </div>
 
               <div className="form-group">
@@ -205,7 +214,7 @@ const NewBill = () => {
               </div>
 
               <div className="form-group">
-                <label htmlFor="taxPercentage">Tax Percentage (%)</label>
+                <label htmlFor="taxPercentage">GST (%)</label>
                 <input
                   type="number"
                   id="taxPercentage"
@@ -261,7 +270,7 @@ const NewBill = () => {
                 <span className="summary-value">₹{totals.subtotal.toFixed(2)}</span>
               </div>
               <div className="summary-row">
-                <span>Tax ({formData.taxPercentage}%):</span>
+                <span>GST ({formData.taxPercentage}%):</span>
                 <span className="summary-value">₹{totals.tax.toFixed(2)}</span>
               </div>
               <div className="summary-row summary-total">

@@ -165,7 +165,7 @@ const MonthlySummary = () => {
                   <DollarSign size={28} />
                 </div>
                 <div className="stat-content">
-                  <h3>Total Tax Collected</h3>
+                  <h3>Total GST Collected</h3>
                   <p className="stat-value">{formatCurrency(summary.totalTax)}</p>
                 </div>
               </div>
