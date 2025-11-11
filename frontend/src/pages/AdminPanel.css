@@ -1,0 +1,210 @@
+.admin-container {
+  padding: 40px 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.admin-header h1 {
+  color: white;
+  font-size: 32px;
+  margin-bottom: 8px;
+}
+
+.admin-header p {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 16px;
+}
+
+.users-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 24px;
+}
+
+.user-card {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.user-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.user-card.user-inactive {
+  opacity: 0.7;
+  background: #f8f9fa;
+}
+
+.user-card-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.user-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 24px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.user-info {
+  flex: 1;
+}
+
+.user-info h3 {
+  color: #333;
+  font-size: 18px;
+  margin-bottom: 4px;
+}
+
+.username {
+  color: #888;
+  font-size: 14px;
+}
+
+.role-badge {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.role-admin {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.role-staff {
+  background: #e3f2fd;
+  color: #1976d2;
+}
+
+.user-card-body {
+  margin-bottom: 20px;
+}
+
+.user-detail {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.user-detail:last-child {
+  border-bottom: none;
+}
+
+.detail-label {
+  color: #888;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.detail-value {
+  color: #333;
+  font-size: 14px;
+}
+
+.status-indicator {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.status-indicator.active {
+  background: #d4edda;
+  color: #155724;
+}
+
+.status-indicator.inactive {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.user-card-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.user-card-actions .btn-icon {
+  flex: 1;
+  padding: 10px 16px;
+  font-size: 14px;
+  justify-content: center;
+}
+
+.btn-warning {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.btn-warning:hover {
+  background: #ffc107;
+  color: white;
+}
+
+.btn-success {
+  background: #d4edda;
+  color: #155724;
+}
+
+.btn-success:hover {
+  background: #28a745;
+  color: white;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 24px;
+}
+
+@media (max-width: 768px) {
+  .users-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .user-card-actions {
+    flex-direction: column;
+  }
+
+  .user-card-actions .btn-icon {
+    width: 100%;
+  }
+}
