@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { usersAPI, authAPI } from '../services/api';
+import { usersAPI } from '../services/api';
 import { UserPlus, Trash2, Power, UserCheck, UserX } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import './AdminPanel.css';
@@ -42,7 +42,7 @@ const AdminPanel = () => {
     }
 
     try {
-      await authAPI.register(formData);
+      await usersAPI.create(formData);
       alert('User added successfully!');
       setShowAddModal(false);
       setFormData({

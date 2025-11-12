@@ -10,21 +10,20 @@ const {
   getMonthlySummary,
   generateMonthlySummaryPDF,
 } = require('../controllers/billController');
-const { protect, admin } = require('../middleware/auth');
 
-// All routes are protected
+// Routes without authentication
 router.route('/')
-  .get(protect, getBills)
-  .post(protect, createBill);
+  .get(getBills)
+  .post(createBill);
 
-router.get('/stats/dashboard', protect, getDashboardStats);
-router.get('/stats/monthly', protect, getMonthlySummary);
-router.get('/stats/monthly/pdf', protect, generateMonthlySummaryPDF);
+router.get('/stats/dashboard', getDashboardStats);
+router.get('/stats/monthly', getMonthlySummary);
+router.get('/stats/monthly/pdf', generateMonthlySummaryPDF);
 
 router.route('/:id')
-  .get(protect, getBillById)
-  .delete(protect, admin, deleteBill);
+  .get(getBillById)
+  .delete(deleteBill);
 
-router.get('/:id/pdf', protect, generateBillPDF);
+router.get('/:id/pdf', generateBillPDF);
 
 module.exports = router;

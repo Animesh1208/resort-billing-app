@@ -3,21 +3,22 @@ const router = express.Router();
 const {
   getUsers,
   getUserById,
+  createUser,
   updateUser,
   deleteUser,
   toggleUserStatus,
 } = require('../controllers/userController');
-const { protect, admin } = require('../middleware/auth');
 
-// All routes are admin protected
+// Routes without authentication
 router.route('/')
-  .get(protect, admin, getUsers);
+  .get(getUsers)
+  .post(createUser);
 
 router.route('/:id')
-  .get(protect, admin, getUserById)
-  .put(protect, admin, updateUser)
-  .delete(protect, admin, deleteUser);
+  .get(getUserById)
+  .put(updateUser)
+  .delete(deleteUser);
 
-router.patch('/:id/toggle-status', protect, admin, toggleUserStatus);
+router.patch('/:id/toggle-status', toggleUserStatus);
 
 module.exports = router;

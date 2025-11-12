@@ -13,9 +13,49 @@ const getUsers = async (req, res) => {
   }
 };
 
-// @desc    Get user by ID (admin only)
+// @desc    Create new user
+// @route   POST /api/users
+// @access  Public
+const createUser = async (req, res) => {
+  try {
+    const { username, email, password, fullName, role } = req.body;
+
+    // Check if user already exists
+    const userExists = await User.findOne({ $or: [{ email }, { username }] });
+
+    if (userExists) {
+      return res.status(400).json({ message: 'User already exists' });
+    }
+
+    // Create user
+    const user = await User.create({
+      username,
+      email,
+      password,
+      fullName,
+      role: role || 'staff',
+    });
+
+    if (user) {
+      res.status(201).json({
+        _id: user._id,
+        username: user.username,
+        fullName: user.fullName,
+        email: user.email,
+        role: user.role,
+        isActive: user.isActive,
+      });
+    } else {
+      res.status(400).json({ message: 'Invalid user data' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// @desc    Get user by ID
 // @route   GET /api/users/:id
-// @access  Private/Admin
+// @access  Public
 const getUserById = async (req, res) => {
   try {
     const user = await User.findById(req.params.id).select('-password');
@@ -30,9 +70,9 @@ const getUserById = async (req, res) => {
   }
 };
 
-// @desc    Update user (admin only)
+// @desc    Update user
 // @route   PUT /api/users/:id
-// @access  Private/Admin
+// @access  Public
 const updateUser = async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
@@ -65,19 +105,14 @@ const updateUser = async (req, res) => {
   }
 };
 
-// @desc    Delete user (admin only)
+// @desc    Delete user
 // @route   DELETE /api/users/:id
-// @access  Private/Admin
+// @access  Public
 const deleteUser = async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
 
     if (user) {
-      // Prevent deleting yourself
-      if (user._id.toString() === req.user._id.toString()) {
-        return res.status(400).json({ message: 'You cannot delete your own account' });
-      }
-
       await user.deleteOne();
       res.json({ message: 'User removed' });
     } else {
@@ -88,19 +123,14 @@ const deleteUser = async (req, res) => {
   }
 };
 
-// @desc    Toggle user active status (admin only)
+// @desc    Toggle user active status
 // @route   PATCH /api/users/:id/toggle-status
-// @access  Private/Admin
+// @access  Public
 const toggleUserStatus = async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
 
     if (user) {
-      // Prevent deactivating yourself
-      if (user._id.toString() === req.user._id.toString()) {
-        return res.status(400).json({ message: 'You cannot deactivate your own account' });
-      }
-
       user.isActive = !user.isActive;
       await user.save();
 
@@ -121,6 +151,7 @@ const toggleUserStatus = async (req, res) => {
 module.exports = {
   getUsers,
   getUserById,
+  createUser,
   updateUser,
   deleteUser,
   toggleUserStatus,

@@ -4,7 +4,6 @@ import { billsAPI } from '../services/api';
 import { Search, Download, Eye, Trash2, Filter, Plus } from 'lucide-react';
 import { format } from 'date-fns';
 import Navbar from '../components/Navbar';
-import { useAuth } from '../context/AuthContext';
 import './Bills.css';
 
 const Bills = () => {
@@ -14,7 +13,6 @@ const Bills = () => {
   const [searchParams] = useSearchParams();
   const [pagination, setPagination] = useState({ page: 1, pages: 1, total: 0 });
   const navigate = useNavigate();
-  const { isAdmin } = useAuth();
 
   useEffect(() => {
     loadBills();
@@ -187,15 +185,13 @@ const Bills = () => {
                           >
                             <Download size={16} />
                           </button>
-                          {isAdmin() && (
-                            <button
-                              className="btn-icon btn-delete"
-                              onClick={() => handleDelete(bill._id)}
-                              title="Delete Bill"
-                            >
-                              <Trash2 size={16} />
-                            </button>
-                          )}
+                          <button
+                            className="btn-icon btn-delete"
+                            onClick={() => handleDelete(bill._id)}
+                            title="Delete Bill"
+                          >
+                            <Trash2 size={16} />
+                          </button>
                         </div>
                       </td>
                     </tr>

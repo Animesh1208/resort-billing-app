@@ -11,38 +11,6 @@ const api = axios.create({
   },
 });
 
-// Add token to requests
-api.interceptors.request.use(
-  (config) => {
-    const user = JSON.parse(localStorage.getItem('user') || '{}');
-    if (user.token) {
-      config.headers.Authorization = `Bearer ${user.token}`;
-    }
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
-  }
-);
-
-// Handle response errors
-api.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    if (error.response?.status === 401) {
-      localStorage.removeItem('user');
-      window.location.href = '/login';
-    }
-    return Promise.reject(error);
-  }
-);
-
-// Auth API
-export const authAPI = {
-  login: (credentials) => api.post('/auth/login', credentials),
-  register: (userData) => api.post('/auth/register', userData),
-  getProfile: () => api.get('/auth/profile'),
-};
 
 // Bills API
 export const billsAPI = {
@@ -60,6 +28,7 @@ export const billsAPI = {
 export const usersAPI = {
   getAll: () => api.get('/users'),
   getById: (id) => api.get(`/users/${id}`),
+  create: (userData) => api.post('/users', userData),
   update: (id, userData) => api.put(`/users/${id}`, userData),
   delete: (id) => api.delete(`/users/${id}`),
   toggleStatus: (id) => api.patch(`/users/${id}/toggle-status`),
